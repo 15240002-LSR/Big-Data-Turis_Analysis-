@@ -1,0 +1,34 @@
+====================================================================
+LAPORAN VALIDASI KUALITAS DATA (DATA QUALITY REPORT)
+Studi Kasus: Tourism Analytics (Hotel Booking Demand)
+====================================================================
+Tanggal Validasi : 2026-11-05
+Dataset Input    : hotel_bookings.csv
+Total Baris Raw  : 119,390 baris
+Total Kolom Raw  : 32 kolom
+
+1. METRIK KUALITAS DATA:
+   -----------------------------------------------------------------
+   - Missing Values (Sebelum Cleaning):
+     * country  : 488 baris
+     * children : 4 baris
+     * agent    : 16,340 baris
+     * company  : 112,593 baris
+   - Anomali / Negative ADR: 1 baris
+   - Zero Guests (Adults+Children+Babies = 0): 180 baris
+
+2. TINDAKAN PEMBERSIHAN (CLEANING ACTION - PYSPARK):
+   -----------------------------------------------------------------
+   - Mengisi nilai Null pada 'country' dengan 'Unknown'
+   - Mengisi nilai Null pada 'children' dengan 0
+   - Mengisi nilai Null pada 'agent' dengan 0
+   - Membuang baris dengan ADR < 0 (anomali harga negatif)
+   - Membuang baris transaksi tanpa tamu (total_guests = 0)
+
+3. HASIL DENGAN STANDAR ETL:
+   -----------------------------------------------------------------
+   - Total Baris Valid (Processed) : 119,209 baris
+   - Format Storage Output          : Apache Parquet (Snappy Compressed)
+   - Skema Database Target          : PostgreSQL 15 Lab (Table: hotel_bookings_clean)
+   - Status Validasi                : PASSED (100% Memenuhi Kriteria Tugas)
+====================================================================
